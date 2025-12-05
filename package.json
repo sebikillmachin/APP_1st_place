@@ -1,0 +1,11 @@
+{
+  "name": "hack_thon-root",
+  "private": true,
+  "scripts": {
+    "start": "cd my-app && npx expo start",
+    "android": "cd my-app && npx expo start --android",
+    "ios": "cd my-app && npx expo start --ios",
+    "web": "cd my-app && npx expo start --web",
+    "install": "cd my-app && npm install"
+  }
+}
