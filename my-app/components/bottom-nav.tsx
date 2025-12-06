@@ -6,8 +6,8 @@ const NAV_ITEMS = [
   { label: 'Home', icon: 'home-outline' as const, href: '/' },
   { label: 'Schedule', icon: 'calendar-outline' as const, href: '/schedule' },
   { label: 'Map', icon: 'map-outline' as const, href: '/map' },
-  { label: 'Tickets', icon: 'ticket-outline' as const },
-  { label: 'Profile', icon: 'person-outline' as const },
+  { label: 'Tickets', icon: 'ticket-outline' as const, href: '/tickets' },
+  { label: 'Profile', icon: 'person-outline' as const, href: '/profile' },
 ];
 
 export function BottomNav() {
@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: 1.5,
     borderColor: '#1b233f',
-    paddingTop: 12,
+    paddingTop: 10,
     paddingHorizontal: 4,
-    paddingBottom: 18,
+    paddingBottom: 14,
     gap: 0,
   },
   navItem: {

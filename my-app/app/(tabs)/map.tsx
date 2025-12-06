@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#060712',
     paddingHorizontal: 18,
-    paddingTop: 28,
-    paddingBottom: 12,
+    paddingTop: 44,
+    paddingBottom: 28,
   },
   container: {
     flex: 1,
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   },
   headerRow: {
     gap: 4,
+    paddingTop: 6,
     alignItems: 'flex-start',
   },
   title: {

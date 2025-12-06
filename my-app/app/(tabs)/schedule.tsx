@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#060712',
     paddingHorizontal: 18,
-    paddingTop: 28,
-    paddingBottom: 12,
+    paddingTop: 36,
+    paddingBottom: 28,
   },
   container: {
     flex: 1,
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
   },
   listWrapper: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 8,
   },
   list: {
     gap: 14,

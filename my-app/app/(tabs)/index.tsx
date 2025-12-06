@@ -5,10 +5,12 @@ import { ThemedView } from '@/components/themed-view';
 import { BottomNav } from '@/components/bottom-nav';
 
 const bubbles = [
-  { label: 'Bar', size: 110, hue: 195 },
-  { label: 'Museum', size: 180, hue: 265 },
-  { label: 'Clubs', size: 140, hue: 165 },
-  { label: 'etc', size: 120, hue: 315 },
+  { label: 'Bar', hue: 195 },
+  { label: 'Museum', hue: 265 },
+  { label: 'Clubs', hue: 165 },
+  { label: 'Restaurants', hue: 315 },
+  { label: 'Concerts', hue: 230 },
+  { label: 'Galleries', hue: 280 },
 ];
 
 export default function HomeScreen() {
@@ -22,25 +24,28 @@ export default function HomeScreen() {
           <View style={styles.lightBar} />
         </View>
 
-        <View style={styles.bubbleGrid}>
-          {bubbles.map((bubble) => (
-            <Pressable
-              key={bubble.label}
-              style={[
-                styles.bubble,
-                {
-                  width: bubble.size,
-                  height: bubble.size * 0.85,
-                  borderColor: `hsla(${bubble.hue}, 80%, 65%, 1)`,
-                  shadowColor: `hsla(${bubble.hue}, 80%, 65%, 1)`,
-                },
-              ]}
-              android_ripple={{ color: 'rgba(255,255,255,0.1)', radius: bubble.size / 2 }}>
+        <View style={styles.bubbleWrap}>
+          <View style={styles.bubbleGrid}>
+            {bubbles.map((bubble, index) => (
+              <Pressable
+                key={bubble.label}
+                style={[
+                  styles.bubble,
+                  {
+                    width: 150,
+                    height: 130,
+                    borderColor: `hsla(${bubble.hue}, 80%, 65%, 1)`,
+                    shadowColor: `hsla(${bubble.hue}, 80%, 65%, 1)`,
+                  },
+                  index % 2 === 0 ? styles.bubbleOffsetA : styles.bubbleOffsetB,
+                ]}
+                android_ripple={{ color: 'rgba(255,255,255,0.1)', radius: bubble.size / 2 }}>
               <ThemedText type="title" style={styles.bubbleLabel}>
                 {bubble.label}
               </ThemedText>
-            </Pressable>
-          ))}
+              </Pressable>
+            ))}
+          </View>
         </View>
       </View>
 
@@ -54,26 +59,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#060712',
     paddingHorizontal: 18,
-    paddingTop: 28,
-    paddingBottom: 12,
+    paddingTop: 44,
+    paddingBottom: 28,
     gap: 0,
   },
   content: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
-    gap: 28,
+    justifyContent: 'flex-start',
+    gap: 18,
   },
   header: {
     gap: 8,
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   headerText: {
     color: '#e5e7eb',
-    textAlign: 'center',
+    textAlign: 'left',
   },
   lightBar: {
-    width: '40%',
+    width: '45%',
     height: 3,
     borderRadius: 999,
     backgroundColor: '#6366f1',
@@ -82,12 +87,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 8,
   },
+  bubbleWrap: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   bubbleGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 16,
-    paddingVertical: 4,
+    paddingVertical: 12,
+  },
+  bubbleOffsetA: {
+    marginTop: 6,
+  },
+  bubbleOffsetB: {
+    marginTop: 18,
   },
   bubble: {
     borderWidth: 2,
@@ -101,5 +117,9 @@ const styles = StyleSheet.create({
   },
   bubbleLabel: {
     color: '#e5e7eb',
+    textAlign: 'center',
+    fontSize: 18,
+    paddingHorizontal: 10,
+    maxWidth: '90%',
   },
 });
