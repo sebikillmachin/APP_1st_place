@@ -115,12 +115,12 @@ const styles = StyleSheet.create({
   list: {
     gap: 12,
     width: '100%',
-    paddingTop: 4,
+    paddingTop: 8,
   },
   ticketCard: {
     borderWidth: 2,
     borderColor: '#1e2a4e',
-    borderRadius: 14,
+    borderRadius: 16,
     paddingVertical: 14,
     paddingHorizontal: 16,
     backgroundColor: '#0c1021',

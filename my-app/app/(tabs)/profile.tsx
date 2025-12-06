@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { useRouter } from 'expo-router';
 
 import { BottomNav } from '@/components/bottom-nav';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { useAuth } from '../context/auth-context';
 
 const stats = [
   { label: 'Reviews', value: '820' },
@@ -13,9 +15,9 @@ const stats = [
 const tabs = ['Reviews', 'About', 'Friends'] as const;
 
 const reviewCards = [
-  { title: 'Neon Lounge', subtitle: '“Great vibe, fast entry.”', color: '#1d4ed8' },
-  { title: 'Skyline Rooftop', subtitle: '“Music on point, views wow.”', color: '#7c3aed' },
-  { title: 'Underground Lab', subtitle: '“Raw energy, loved it.”', color: '#0ea5e9' },
+  { title: 'Neon Lounge', subtitle: 'Great vibe, fast entry.', color: '#1d4ed8' },
+  { title: 'Skyline Rooftop', subtitle: 'Music on point, views wow.', color: '#7c3aed' },
+  { title: 'Underground Lab', subtitle: 'Raw energy, loved it.', color: '#0ea5e9' },
 ];
 
 const aboutText =
@@ -30,6 +32,8 @@ const friends = [
 
 export default function ProfileScreen() {
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>('Reviews');
+  const { user, signOut } = useAuth();
+  const router = useRouter();
 
   return (
     <ThemedView style={styles.screen}>
@@ -46,9 +50,9 @@ export default function ProfileScreen() {
             </View>
           </View>
           <ThemedText type="title" style={styles.name}>
-            Tima Bouzid
+            {user?.username || 'Guest'}
           </ThemedText>
-          <ThemedText style={styles.title}>Nightlife curator · Berlin</ThemedText>
+          <ThemedText style={styles.title}>{user?.email || 'No email'}</ThemedText>
         </View>
 
         <View style={styles.statsRow}>
@@ -68,9 +72,15 @@ export default function ProfileScreen() {
               Edit profile
             </ThemedText>
           </View>
-          <View style={styles.iconButton}>
-            <ThemedText style={styles.actionIcon}>⇪</ThemedText>
-          </View>
+          <Pressable
+            style={styles.iconButton}
+            android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+            onPress={() => {
+              signOut();
+              router.replace('/auth/sign-in');
+            }}>
+            <ThemedText style={styles.actionIcon}>Sign out</ThemedText>
+          </Pressable>
         </View>
 
         <View style={styles.tabRow}>
@@ -134,6 +144,18 @@ export default function ProfileScreen() {
             </View>
           </View>
         )}
+
+        <Pressable
+          style={styles.signOutButton}
+          android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+          onPress={() => {
+            signOut();
+            router.replace('/auth/sign-in');
+          }}>
+          <ThemedText type="defaultSemiBold" style={styles.signOutText}>
+            Sign out
+          </ThemedText>
+        </Pressable>
       </ScrollView>
 
       <BottomNav />
@@ -235,18 +257,15 @@ const styles = StyleSheet.create({
     color: '#f8fafc',
   },
   iconButton: {
-    width: 42,
-    height: 42,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
     borderWidth: 1.5,
     borderColor: '#c084fc',
     backgroundColor: '#0b1020',
   },
   actionIcon: {
-    color: '#c084fc',
-    fontSize: 16,
+    color: '#e5e7eb',
   },
   tabRow: {
     flexDirection: 'row',
@@ -333,5 +352,17 @@ const styles = StyleSheet.create({
   },
   friendRole: {
     color: '#cbd5e1',
+  },
+  signOutButton: {
+    marginTop: 12,
+    paddingVertical: 12,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderColor: '#c084fc',
+    alignItems: 'center',
+    backgroundColor: '#0b1020',
+  },
+  signOutText: {
+    color: '#e5e7eb',
   },
 });
